@@ -12,6 +12,9 @@ adminroleid = 842775556772069406 # the role's ID
 token = os.environ['token']
 bot = commands.Bot(command_prefix=prefix,help_command=None)
 
+def noperms(var):
+  return("Hello " + var.author.mention + "! Sorry, but you don't have permission to use that command.")
+
 @bot.event
 async def on_ready():
   await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="the server"))
@@ -25,7 +28,7 @@ async def addadminto(ctx,user : discord.Member):
     await ctx.reply("Successfully added the admin role to <@"+str(user.id)+">")
   else:
     await ctx.message.delete()
-    await ctx.author.send("Hello " + ctx.author.mention + "! Sorry, but you don't have permission to use that command.")
+    await ctx.author.send(noperms(ctx))
 
 @bot.command()
 async def removeadminfrom(ctx,user : discord.Member):
@@ -35,7 +38,7 @@ async def removeadminfrom(ctx,user : discord.Member):
     await ctx.reply("Successfully removed the admin role from <@"+str(user.id)+">")
   else:
     await ctx.message.delete()
-    await ctx.author.send("Hello " + ctx.author.mention + "! Sorry, but you don't have permission to use that command.")
+    await ctx.author.send(noperms(ctx))
 
 keep_alive()
 bot.run(token)
